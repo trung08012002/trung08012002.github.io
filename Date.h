@@ -28,6 +28,7 @@ public:
     friend class List;
     friend class Book;
     friend class PhieuMuonTra;
+    friend class Function;
 };
 
 ostream &operator<<(ostream &, Date &);

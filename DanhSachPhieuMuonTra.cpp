@@ -1,5 +1,5 @@
 #include "DanhSachPhieuMuonTra.h"
-
+#define N 10000
 DanhSachPhieuMuonTra::DanhSachPhieuMuonTra()
 {
     this->n = 0;
@@ -97,6 +97,7 @@ void DanhSachPhieuMuonTra::addFromFile() //doc tu file
         Date Ngay_Muon;
         Date Ngay_Tra;
         string Trang_Thai;
+        int TTien;
         pos = current_line.find(delimiter);
         ma_Phieu = current_line.substr(0, pos);
         current_line.erase(0, pos + delimiter.length());
@@ -125,9 +126,14 @@ void DanhSachPhieuMuonTra::addFromFile() //doc tu file
         pos = current_line.find(delimiter);
         Trang_Thai = current_line.substr(0, pos);
         current_line.erase(0, pos + delimiter.length());
+        pos = current_line.find(delimiter);
+        TTien = atoi(current_line.substr(0, pos).c_str());
+        current_line.erase(0, pos + delimiter.length());
+
         PhieuMuonTra new_PhieuMuonTra(ma_Phieu,
                                       tensach,
                                       tentacgia,
+                                      TTien,
                                       Ngay_Muon,
                                       Ngay_Tra,
                                       Trang_Thai);
@@ -177,11 +183,12 @@ void DanhSachPhieuMuonTra::Update(string Ma_PhieuMuonTra)
         cout << "Thong tin can nhap" << endl;
         cout << "0.thoat" << endl;
         cout << "1.ma Phieu Muon Tra" << endl;
-        cout << "2.Tensach" << endl;
+        cout << "2.masach" << endl;
         cout << "3.ma nguoi doc" << endl;
         cout << "4.Ngay muon" << endl;
         cout << "5.Ngay tra" << endl;
         cout << "6.Trang Thai" << endl;
+        cout << "7.Tong tien" << endl;
 
         int choice;
         cin >> choice;
@@ -191,7 +198,13 @@ void DanhSachPhieuMuonTra::Update(string Ma_PhieuMuonTra)
             cin >> (this->hash_table_P[tempPhieuMuonTra->hash()])->ma_Phieu;
             break;
         case 2:
-            cin >> (this->hash_table_P[tempPhieuMuonTra->hash()])->tensach;
+            for (int i = 0; i < 4; i++)
+            {
+                if ((this->hash_table_P[tempPhieuMuonTra->hash()])->masach[i] != "0")
+                    cin >> (this->hash_table_P[tempPhieuMuonTra->hash()])->masach[i];
+                else
+                    break;
+            }
             break;
         case 3:
             cin >> (this->hash_table_P[tempPhieuMuonTra->hash()])->ma_Member;
@@ -205,7 +218,9 @@ void DanhSachPhieuMuonTra::Update(string Ma_PhieuMuonTra)
         case 6:
             cin >> (this->hash_table_P[tempPhieuMuonTra->hash()])->Trang_Thai;
             break;
-
+        case 7:
+            cin >> (this->hash_table_P[tempPhieuMuonTra->hash()])->TTien;
+            break;
         case 0:
         {
             dung = 0;
@@ -214,6 +229,7 @@ void DanhSachPhieuMuonTra::Update(string Ma_PhieuMuonTra)
         }
     }
 }
+
 void DanhSachPhieuMuonTra::updateFile()
 {
     ofstream os("newfile.txt");

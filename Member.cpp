@@ -1,4 +1,5 @@
 #include "Member.h"
+
 #include <typeinfo>
 
 bool Member::operator==(const Member &t)

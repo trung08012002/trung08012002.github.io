@@ -4,6 +4,7 @@
 #include "Book.h"
 #include <iostream>
 #include "Date.h"
+#include "DanhSachPhieuMuonTra.h"
 using namespace std;
 
 class Member
@@ -17,6 +18,7 @@ protected:
     string Phai;
     bool Trang_Thai;
     Member *next;
+    DanhSachPhieuMuonTra l;
 
 public:
     Member();

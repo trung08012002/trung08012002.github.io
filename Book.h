@@ -9,10 +9,10 @@ class Book
 {
 
 protected:
+    string masach;
     string tensach;
     string tentacgia;
     string theloai;
-    string mota;
     int doyeuthich;
     bool tinhtrang;
 
@@ -20,8 +20,7 @@ protected:
     Book *next;
 
 public:
-    Book();
-    Book(string = "0",
+        Book(string = "0",
          string = "0",
          string = "0",
          string = "0",
@@ -37,7 +36,7 @@ public:
     friend istream &operator>>(istream &, Date &);
 
     friend class List;
-
+    friend class PhieuMuonTra;
     Book operator=(const Book &);
     bool operator==(const Book &);
     bool operator!=(const Book &);

@@ -7,7 +7,7 @@ bool Book::operator==(const Book &t)
         this->theloai == t.theloai &&
         this->doyeuthich == t.doyeuthich &&
         this->Giasach == t.Giasach &&
-        this->mota == t.mota &&
+        this->masach == t.masach &&
         this->tinhtrang == t.tinhtrang)
         return true;
     else
@@ -20,7 +20,7 @@ bool Book::operator!=(const Book &t)
         this->theloai != t.theloai ||
         this->doyeuthich != t.doyeuthich ||
         this->Giasach != t.Giasach ||
-        this->mota != t.mota ||
+        this->masach != t.masach ||
         this->tinhtrang != t.tinhtrang)
         return true;
     else
@@ -34,39 +34,36 @@ Book Book::operator=(const Book &t)
     this->theloai = t.theloai;
     this->doyeuthich = t.doyeuthich;
     this->Giasach = t.Giasach;
-    this->mota = t.mota;
+    this->masach = t.masach;
     this->tinhtrang = t.tinhtrang;
     return *this;
 }
-Book::Book()
-{
-}
+
 void Book::Show()
 {
+    cout << "masach:" << this->masach << endl;
     cout << "tensach:" << this->tensach << endl;
     cout << "tentacgia:" << this->tentacgia << endl;
     cout << "tinhtrang:" << this->tinhtrang << endl;
     cout << "theloai:" << this->theloai << endl;
-    cout << "mota:" << this->mota << endl;
+
     cout << "doyeuthich:" << this->doyeuthich << endl;
     cout << "Giasach:" << this->Giasach << endl;
 }
 
-Book::Book(string tensach,
+Book::Book(string masach,
+           string tensach,
            string tentacgia,
            string theloai,
-           string mota,
            int doyeuthich,
            bool tinhtrang,
-
            int Giasach)
-    : tensach(tensach),
+    : masach(masach),
+      tensach(tensach),
       tentacgia(tentacgia),
       theloai(theloai),
-      mota(mota),
       doyeuthich(doyeuthich),
       tinhtrang(tinhtrang),
-
       Giasach(Giasach)
 {
     this->next = nullptr;
@@ -81,7 +78,7 @@ Book::Book(Book &t)
     this->theloai = t.theloai;
     this->doyeuthich = t.doyeuthich;
     this->Giasach = t.Giasach;
-    this->mota = t.mota;
+    this->masach = t.masach;
     this->tinhtrang = t.tinhtrang;
     this->next = nullptr;
 }
@@ -93,7 +90,7 @@ int Book::hash()
 {
 
     unsigned long hash = 5381;
-    for (auto c : this->tensach)
+    for (auto c : this->masach)
     {
         hash = (hash << 5) + hash + c; /* hash * 33 + c */
     }

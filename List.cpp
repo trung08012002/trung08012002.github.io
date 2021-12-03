@@ -57,22 +57,22 @@ void List::addBook(Book temp_Book)
 
     this->hash_table[temp_Book.hash()] = addToHashTable(temp_Book, this->hash_table[temp_Book.hash()]);
 }
-bool List::any(const string &tensach, const string &tentacgia)
+bool List::any(const string &masach)
 {
-    Book temp_Book(tensach, tentacgia);
+    Book temp_Book(masach);
     Book *current_ptr = this->hash_table[temp_Book.hash()];
     while (current_ptr)
     {
-        if (current_ptr->tensach == temp_Book.tensach && current_ptr->tentacgia == temp_Book.tentacgia)
+        if (current_ptr->masach == temp_Book.masach)
             return 1;
         current_ptr = current_ptr->next;
     }
     return 0;
 }
 
-Book *List::Search(string tensach, string tentacgia)
+Book *List::Search(string masach)
 {
-    Book temp_Book(tensach, tentacgia);
+    Book temp_Book(masach);
     Book *current_ptr = this->hash_table[temp_Book.hash()];
     while (current_ptr)
     {
@@ -94,7 +94,7 @@ void List::addFromFile() //doc tu file
         string tensach;
         string tentacgia;
         string theloai;
-        string mota;
+        string masach;
         int doyeuthich;
         bool tinhtrang;
         Date Ngaythuesach;
@@ -108,7 +108,7 @@ void List::addFromFile() //doc tu file
         current_line.erase(0, pos + delimiter.length());
         theloai = current_line.substr(0, pos);
         current_line.erase(0, pos + delimiter.length());
-        mota = current_line.substr(0, pos);
+        masach = current_line.substr(0, pos);
         current_line.erase(0, pos + delimiter.length());
         doyeuthich = atoi(current_line.substr(0, pos).c_str());
         current_line.erase(0, pos + delimiter.length());
@@ -131,35 +131,34 @@ void List::addFromFile() //doc tu file
         Ngaytrasach = Date(ngay, thang, nam);
         current_line.erase(0, pos + delimiter.length());
         Giasach = atoi(current_line.c_str());
-        Book new_Book(tensach,
+        Book new_Book(masach,
+                      tensach,
                       tentacgia,
                       theloai,
-                      mota,
                       doyeuthich,
                       tinhtrang,
-
                       Giasach);
         this->addBook(new_Book);
     }
     file_stream.close();
 }
-void List::deleteBook(string tensach, string tentacgia)
+void List::deleteBook(string masach)
 {
-    if (this->any(tensach, tentacgia) == 0)
+    if (this->any(masach) == 0)
     {
         return;
     }
-    Book temp_Book(tensach, tentacgia);
+    Book temp_Book(masach);
     int hash_key = temp_Book.hash();
     Book *current_pointer = this->hash_table[hash_key];
-    if (current_pointer->tensach == temp_Book.tensach && current_pointer->tentacgia == temp_Book.tentacgia)
+    if (current_pointer->masach == temp_Book.masach)
     {
         this->hash_table[hash_key] = current_pointer->next;
         return;
     }
     while (current_pointer->next->next)
     {
-        if (current_pointer->next->tensach == temp_Book.tensach && current_pointer->next->tentacgia == temp_Book.tentacgia)
+        if (current_pointer->next->masach == temp_Book.masach)
         {
             current_pointer->next = current_pointer->next->next;
             break;
@@ -171,12 +170,12 @@ void List::deleteBook(string tensach, string tentacgia)
     return;
 }
 
-void List::Update(string tensach, string tentacgia)
+void List::Update(string masach)
 {
     while (1)
     {
         int dung = 1;
-        Book *tempBook = Search(tensach, tentacgia);
+        Book *tempBook = Search(masach);
 
         cout << "Thong tin can nhap" << endl;
         cout << "1.tensach" << endl;
@@ -184,7 +183,7 @@ void List::Update(string tensach, string tentacgia)
         cout << "3.tinhtrang" << endl;
 
         cout << "4.Giasach" << endl;
-        cout << "5.mota" << endl;
+        cout << "5.Masach" << endl;
         cout << "6.doyeuthich" << endl;
         cout << "7.theloai" << endl;
         int choice;
@@ -205,7 +204,7 @@ void List::Update(string tensach, string tentacgia)
             cin >> (this->hash_table[tempBook->hash()])->Giasach;
             break;
         case 5:
-            cin >> (this->hash_table[tempBook->hash()])->mota;
+            cin >> (this->hash_table[tempBook->hash()])->masach;
             break;
         case 6:
             cin >> (this->hash_table[tempBook->hash()])->doyeuthich;
