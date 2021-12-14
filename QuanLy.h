@@ -6,8 +6,8 @@
 using namespace std;
 class QuanLy : public DanhSachPhieuMuonTra, public List, public ListMember
 {
-    int So_Ngay_Qua_Han(Date, Date);
-    bool Kiem_Tra_Sach_Muon_Qua_Han(DanhSachPhieuMuonTra, string, string);
-    bool HaveMaSach(PhieuMuonTra *, string);
-    int Tong_Ngay_Qua_Han(DanhSachPhieuMuonTra, string);
+
+    bool Kiem_Tra_Sach_Muon_Qua_Han(DanhSachPhieuMuonTra, int, int);
+    bool HaveMaSach(PhieuMuonTra *, int);
+    int Tong_Ngay_Qua_Han(DanhSachPhieuMuonTra, int);
 };

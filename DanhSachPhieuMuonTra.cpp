@@ -21,7 +21,7 @@ DanhSachPhieuMuonTra::~DanhSachPhieuMuonTra()
 
 void DanhSachPhieuMuonTra::Show()
 {
-    int number_of_word = 0;
+    int number_of_Phieu_Muon_Tra = 0;
     system("clear");
     cout << "********    VIEW DanhSachPhieuMuonTra    *********";
     for (int i = 0; i < this->n; i++)
@@ -35,12 +35,12 @@ void DanhSachPhieuMuonTra::Show()
             do
             {
                 current_pointer->Show();
-                number_of_word++;
+                number_of_Phieu_Muon_Tra++;
                 current_pointer = current_pointer->next;
             } while (current_pointer);
         }
     }
-    cout << "\n\nNumber of word in dictionary: " << number_of_word;
+    cout << "\n\nNumber of Phieu Muon Tra in dictionary: " << number_of_Phieu_Muon_Tra;
 }
 PhieuMuonTra *DanhSachPhieuMuonTra::addToHashTable(PhieuMuonTra temp_PhieuMuonTra, PhieuMuonTra *ptr) const
 {
@@ -57,7 +57,7 @@ void DanhSachPhieuMuonTra::addPhieuMuonTra(PhieuMuonTra temp_PhieuMuonTra)
 
     this->hash_table_P[temp_PhieuMuonTra.hash()] = addToHashTable(temp_PhieuMuonTra, this->hash_table_P[temp_PhieuMuonTra.hash()]);
 }
-bool DanhSachPhieuMuonTra::any(string Ma_PhieuMuonTra)
+bool DanhSachPhieuMuonTra::any(int Ma_PhieuMuonTra)
 {
     PhieuMuonTra temp_PhieuMuonTra(Ma_PhieuMuonTra);
     PhieuMuonTra *current_ptr = this->hash_table_P[temp_PhieuMuonTra.hash()];
@@ -70,7 +70,7 @@ bool DanhSachPhieuMuonTra::any(string Ma_PhieuMuonTra)
     return 0;
 }
 
-PhieuMuonTra *DanhSachPhieuMuonTra::Search(string Ma_PhieuMuonTra)
+PhieuMuonTra *DanhSachPhieuMuonTra::Search(int Ma_PhieuMuonTra)
 {
     PhieuMuonTra temp_PhieuMuonTra(Ma_PhieuMuonTra);
     PhieuMuonTra *current_ptr = this->hash_table_P[temp_PhieuMuonTra.hash()];
@@ -91,21 +91,22 @@ void DanhSachPhieuMuonTra::addFromFile() //doc tu file
         string delimiter = "--";
         string token;
         int pos = 0;
-        string ma_Phieu;
-        string tensach;
-        string tentacgia;
+        int ma_Phieu;
+
+        int masach;
+        int ma_Member;
+        int TTien;
         Date Ngay_Muon;
         Date Ngay_Tra;
         string Trang_Thai;
-        int TTien;
         pos = current_line.find(delimiter);
-        ma_Phieu = current_line.substr(0, pos);
+        ma_Phieu = atoi(current_line.substr(0, pos).c_str());
         current_line.erase(0, pos + delimiter.length());
         pos = current_line.find(delimiter);
-        tensach = current_line.substr(0, pos);
+        masach = atoi(current_line.substr(0, pos).c_str());
         current_line.erase(0, pos + delimiter.length());
         pos = current_line.find(delimiter);
-        tentacgia = current_line.substr(0, pos);
+        ma_Member = atoi(current_line.substr(0, pos).c_str());
         current_line.erase(0, pos + delimiter.length());
         pos = current_line.find(delimiter);
 
@@ -131,8 +132,8 @@ void DanhSachPhieuMuonTra::addFromFile() //doc tu file
         current_line.erase(0, pos + delimiter.length());
 
         PhieuMuonTra new_PhieuMuonTra(ma_Phieu,
-                                      tensach,
-                                      tentacgia,
+                                      masach,
+                                      ma_Member,
                                       TTien,
                                       Ngay_Muon,
                                       Ngay_Tra,
@@ -141,7 +142,7 @@ void DanhSachPhieuMuonTra::addFromFile() //doc tu file
     }
     file_stream.close();
 }
-void DanhSachPhieuMuonTra::deletePhieuMuonTra(string Ma_PhieuMuonTra)
+void DanhSachPhieuMuonTra::deletePhieuMuonTra(int Ma_PhieuMuonTra)
 {
     if (this->any(Ma_PhieuMuonTra) == 0)
     {
@@ -168,12 +169,28 @@ void DanhSachPhieuMuonTra::deletePhieuMuonTra(string Ma_PhieuMuonTra)
         current_pointer->next = nullptr;
     return;
 }
-void DanhSachPhieuMuonTra::GiaHan(string Ma_PhieuMuonTra, int songaythem)
+void DanhSachPhieuMuonTra::deleteAllPhieuMuonTra()
 {
-    PhieuMuonTra temp_PhieuMuonTra(Ma_PhieuMuonTra);
-    this->hash_table_P[temp_PhieuMuonTra.hash()]->Ngay_Tra += songaythem;
+    for (int i = 0; i < n; i++)
+    {
+        if (!this->hash_table_P[i])
+            continue;
+        else
+        {
+            PhieuMuonTra *current_pointer = this->hash_table_P[i];
+            PhieuMuonTra *next_of_current_pointer = nullptr;
+            while (current_pointer != nullptr)
+            {
+                next_of_current_pointer = current_pointer->next;
+                current_pointer = nullptr;
+                current_pointer = next_of_current_pointer;
+            }
+            this->hash_table_P[i] = nullptr;
+        }
+    }
 }
-void DanhSachPhieuMuonTra::Update(string Ma_PhieuMuonTra)
+
+void DanhSachPhieuMuonTra::Update(int Ma_PhieuMuonTra)
 {
     while (1)
     {
@@ -187,7 +204,7 @@ void DanhSachPhieuMuonTra::Update(string Ma_PhieuMuonTra)
         cout << "3.ma nguoi doc" << endl;
         cout << "4.Ngay muon" << endl;
         cout << "5.Ngay tra" << endl;
-        cout << "6.Trang Thai" << endl;
+        cout << "6.Phieu muon tra" << endl;
         cout << "7.Tong tien" << endl;
 
         int choice;
@@ -200,7 +217,7 @@ void DanhSachPhieuMuonTra::Update(string Ma_PhieuMuonTra)
         case 2:
             for (int i = 0; i < 4; i++)
             {
-                if ((this->hash_table_P[tempPhieuMuonTra->hash()])->masach[i] != "0")
+                if ((this->hash_table_P[tempPhieuMuonTra->hash()])->masach[i] != 0)
                     cin >> (this->hash_table_P[tempPhieuMuonTra->hash()])->masach[i];
                 else
                     break;
@@ -237,4 +254,31 @@ void DanhSachPhieuMuonTra::updateFile()
     os.close();
     remove("DanhSachPhieuMuonTra.txt");
     rename("newfile.txt", "List.txt");
+}
+void DanhSachPhieuMuonTra::Kiem_Tra_Phieu_Muon_Tra_Qua_Han()
+{
+    int number_of_Phieu_Muon_Tra = 0;
+    system("clear");
+    cout << "********    VIEW DanhSachPhieuMuonTraDaQuaHan    *********";
+    for (int i = 0; i < this->n; i++)
+    {
+        if (!this->hash_table_P[i])
+            continue;
+        else
+        {
+            PhieuMuonTra *current_pointer = this->hash_table_P[i];
+
+            do
+            {
+
+                if (current_pointer->So_Ngay_Qua_Han(current_pointer->Ngay_Muon, current_pointer->Ngay_Tra) > 15)
+                {
+                    current_pointer->Show();
+                    number_of_Phieu_Muon_Tra++;
+                    current_pointer = current_pointer->next;
+                }
+            } while (current_pointer);
+        }
+    }
+    cout << "\n\nNumber of Phieu Muon Tra Da Qua Han in dictionary: " << number_of_Phieu_Muon_Tra;
 }

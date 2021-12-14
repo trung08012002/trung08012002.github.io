@@ -1,5 +1,5 @@
 #include "List.h"
-
+#include <iomanip>
 List::List()
 {
     this->n = 0;
@@ -36,7 +36,9 @@ void List::Show()
             {
                 current_pointer->Show();
                 number_of_word++;
+
                 current_pointer = current_pointer->next;
+
             } while (current_pointer);
         }
     }
@@ -57,20 +59,26 @@ void List::addBook(Book temp_Book)
 
     this->hash_table[temp_Book.hash()] = addToHashTable(temp_Book, this->hash_table[temp_Book.hash()]);
 }
-bool List::any(const string &masach)
+bool List::any(int masach)
 {
     Book temp_Book(masach);
     Book *current_ptr = this->hash_table[temp_Book.hash()];
+
     while (current_ptr)
     {
+
         if (current_ptr->masach == temp_Book.masach)
+        {
+
             return 1;
+        }
+
         current_ptr = current_ptr->next;
     }
     return 0;
 }
 
-Book *List::Search(string masach)
+Book *List::Search(int masach)
 {
     Book temp_Book(masach);
     Book *current_ptr = this->hash_table[temp_Book.hash()];
@@ -88,17 +96,16 @@ void List::addFromFile() //doc tu file
     string current_line;
     while (getline(file_stream, current_line))
     {
-        string delimiter = "--";
+
+        string delimiter = ",";
         string token;
         int pos = 0;
+        int masach;
         string tensach;
         string tentacgia;
         string theloai;
-        string masach;
         int doyeuthich;
         bool tinhtrang;
-        Date Ngaythuesach;
-        Date Ngaytrasach;
         int Giasach;
         pos = current_line.find(delimiter);
         tensach = current_line.substr(0, pos);
@@ -106,30 +113,22 @@ void List::addFromFile() //doc tu file
         pos = current_line.find(delimiter);
         tentacgia = current_line.substr(0, pos);
         current_line.erase(0, pos + delimiter.length());
+        pos = current_line.find(delimiter);
         theloai = current_line.substr(0, pos);
         current_line.erase(0, pos + delimiter.length());
-        masach = current_line.substr(0, pos);
+        pos = current_line.find(delimiter);
+        masach = atoi(current_line.substr(0, pos).c_str());
         current_line.erase(0, pos + delimiter.length());
+        pos = current_line.find(delimiter);
         doyeuthich = atoi(current_line.substr(0, pos).c_str());
         current_line.erase(0, pos + delimiter.length());
+        pos = current_line.find(delimiter);
         if (current_line.substr(0, pos) == "true")
             tinhtrang = true;
         else
             tinhtrang = false;
         current_line.erase(0, pos + delimiter.length());
-        int ngay;
-        int thang;
-        int nam;
-        ngay = atoi(current_line.substr(0, 1).c_str());
-        thang = atoi(current_line.substr(2, 3).c_str());
-        nam = atoi(current_line.substr(4, pos).c_str());
-        Ngaythuesach = Date(ngay, thang, nam);
-        current_line.erase(0, pos + delimiter.length());
-        ngay = atoi(current_line.substr(0, 1).c_str());
-        thang = atoi(current_line.substr(2, 3).c_str());
-        nam = atoi(current_line.substr(4, pos).c_str());
-        Ngaytrasach = Date(ngay, thang, nam);
-        current_line.erase(0, pos + delimiter.length());
+        pos = current_line.find(delimiter);
         Giasach = atoi(current_line.c_str());
         Book new_Book(masach,
                       tensach,
@@ -142,7 +141,7 @@ void List::addFromFile() //doc tu file
     }
     file_stream.close();
 }
-void List::deleteBook(string masach)
+void List::deleteBook(int masach)
 {
     if (this->any(masach) == 0)
     {
@@ -169,8 +168,27 @@ void List::deleteBook(string masach)
         current_pointer->next = nullptr;
     return;
 }
-
-void List::Update(string masach)
+void List::deleteAllBook()
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (!this->hash_table[i])
+            continue;
+        else
+        {
+            Book *current_pointer = this->hash_table[i];
+            Book *next_of_current_pointer = nullptr;
+            while (current_pointer != nullptr)
+            {
+                next_of_current_pointer = current_pointer->next;
+                current_pointer = nullptr;
+                current_pointer = next_of_current_pointer;
+            }
+            this->hash_table[i] = nullptr;
+        }
+    }
+}
+void List::Update(int masach)
 {
     while (1)
     {
@@ -227,4 +245,50 @@ void List::updateFile()
     os.close();
     remove("List.txt");
     rename("newfile.txt", "List.txt");
+}
+void List::Top_10_Sach_Muon_Nhieu_Nhat()
+{
+    int *luot_muon = new int[10];
+    int *ma_Sach = new int[10];
+    for (int j = 0; j < 10; j++)
+    {
+        luot_muon[j] = 0;
+        ma_Sach[j] = 0;
+    }
+    int max = 0;
+    int index = 0;
+    for (int i = 0; i < this->n; i++)
+    {
+        if (!this->hash_table[i])
+            continue;
+        else
+        {
+            Book *current_pointer = this->hash_table[i];
+
+            do
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (luot_muon[j] <= max)
+                    {
+                        max = luot_muon[j];
+                        index = j;
+                    }
+                }
+                if (current_pointer->doyeuthich > max)
+                {
+                    luot_muon[index] = current_pointer->doyeuthich;
+                    ma_Sach[index] = current_pointer->masach;
+                }
+                current_pointer = current_pointer->next;
+
+            } while (current_pointer);
+        }
+    }
+    cout << setw(30) << "Ma so Sach" << setw(30) << "So luot muon";
+    cout << "\n***********************************************" << endl;
+    for (int j = 0; j < 10; j++)
+    {
+        cout << setw(30) << ma_Sach[j] << setw(30) << luot_muon[j] << endl;
+    }
 }

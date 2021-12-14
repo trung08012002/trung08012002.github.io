@@ -57,9 +57,9 @@ void ListMember::addMember(Member temp_Member)
 
     this->hash_table_M[temp_Member.hash()] = addToHashTable(temp_Member, this->hash_table_M[temp_Member.hash()]);
 }
-bool ListMember::any(int Ma_member, string ho, string ten)
+bool ListMember::any(int Ma_member)
 {
-    Member temp_Member(Ma_member, ho, ten);
+    Member temp_Member(Ma_member);
     Member *current_ptr = this->hash_table_M[temp_Member.hash()];
     while (current_ptr)
     {
@@ -70,9 +70,9 @@ bool ListMember::any(int Ma_member, string ho, string ten)
     return 0;
 }
 
-Member *ListMember::Search(int Ma_member, string ho, string ten)
+Member *ListMember::Search(int Ma_member)
 {
-    Member temp_Member(Ma_member, ho, ten);
+    Member temp_Member(Ma_member);
     Member *current_ptr = this->hash_table_M[temp_Member.hash()];
     while (current_ptr)
     {
@@ -135,23 +135,23 @@ void ListMember::addFromFile() //doc tu file
     }
     file_stream.close();
 }
-void ListMember::deleteMember(int Ma_member, string ho, string ten)
+bool ListMember::deleteMember(int Ma_member)
 {
-    if (this->any(Ma_member, ho, ten) == 0)
+    if (this->any(Ma_member) == 0)
     {
-        return;
+        return 0;
     }
-    Member temp_Member(Ma_member, ho, ten);
+    Member temp_Member(Ma_member);
     int hash_key = temp_Member.hash();
     Member *current_pointer = this->hash_table_M[hash_key];
-    if (current_pointer->Ten == temp_Member.Ten && current_pointer->Ho == temp_Member.Ho)
+    if (current_pointer->ma_Member == temp_Member.ma_Member)
     {
         this->hash_table_M[hash_key] = current_pointer->next;
-        return;
+        return 1;
     }
     while (current_pointer->next->next)
     {
-        if (current_pointer->next->Ten == temp_Member.Ten && current_pointer->next->Ho == temp_Member.Ho)
+        if (current_pointer->ma_Member == temp_Member.ma_Member)
         {
             current_pointer->next = current_pointer->next->next;
             break;
@@ -160,15 +160,34 @@ void ListMember::deleteMember(int Ma_member, string ho, string ten)
     }
     if (*(current_pointer->next) == temp_Member)
         current_pointer->next = nullptr;
-    return;
+    return 1;
 }
-
-void ListMember::Update(int Ma_member, string ho, string ten)
+void ListMember::deleteAllMember()
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (!this->hash_table_M[i])
+            continue;
+        else
+        {
+            Member *current_pointer = this->hash_table_M[i];
+            Member *next_of_current_pointer = nullptr;
+            while (current_pointer != nullptr)
+            {
+                next_of_current_pointer = current_pointer->next;
+                current_pointer = nullptr;
+                current_pointer = next_of_current_pointer;
+            }
+            this->hash_table_M[i] = nullptr;
+        }
+    }
+}
+void ListMember::Update(int Ma_member)
 {
     while (1)
     {
         int dung = 1;
-        Member *tempMember = Search(Ma_member, ho, ten);
+        Member *tempMember = Search(Ma_member);
 
         cout << "Thong tin can nhap" << endl;
         cout << "0.thoat" << endl;

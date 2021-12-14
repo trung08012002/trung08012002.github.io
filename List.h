@@ -19,14 +19,15 @@ public:
     ~List();
     void Show();
     Book *addToHashTable(Book, Book *) const;
-    void Update(string);
-    void deleteBook(string);
-    Book *Search(string);
+    void Update(int);
+    void deleteBook(int);
+    void deleteAllBook();
+    Book *Search(int);
 
     void addBook(Book);
     void addFromFile();
-
-    bool any(const string &);
+    void Top_10_Sach_Muon_Nhieu_Nhat();
+    bool any(int);
     void updateFile();
 };
 #endif _List_

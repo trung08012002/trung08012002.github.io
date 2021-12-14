@@ -1,0 +1,20 @@
+cho sua nham cay,Eric Barker,ky nang song,1,1,true,85
+bi mat cua may man,Alex Rovira,ky nang song,2,2,true,100
+dan ong sao hoa dan ba sao kim,John Gray,ky nang song,3,4,true,90
+giai thich ngu phap tieng anh,Mai Lan Huong,ngoai ngu,4,9,true,100
+25 chuyen de ngu phap tieng anh,Trang Anh,ngoai ngu,5,5,true,250
+cam nang cau truc tieng anh,Trang Anh,ngoai ngu,6,0,true,200
+nguoi giau co nhat thanh babylon,George Samuel Clason,kinh te,7,6,true,67
+dung lam viec cham chi hay lam viec thong minh,Jean Gomes,kinh te,8,7,true,100
+thong ke trong kinh te va kinh doanh,Anderson,kinh te,9,4,true,100
+bai tap lap trinh co ban voi ngon ngu python,Nguyen Van A,cong nghe,10,2,true,105
+digital transformation,Nguyen Van B,cong nghe,11,3,true,170
+che do cat gia cong co khi,Nguyen Ngoc Bao,cong nghe,12,0,true,75
+Lap Trinh Oop,Tran Dan Thu,cong nghe,13,7,true,168
+Tu Hoc c/c++,Dang Binh Phuong,cong nghe,14,6,true,200
+Lap Trinh Can Ban,Tran Minh Triet,cong nghe,15,4,300
+Ke Toan Tai Chinh,Tran Dang Khoa,kinh te,16,5,165
+Tu hoc C# 24h,Tran Hanh Nhi,cong nghe,17,8,200
+Tu hoc Java 24h,Do Xuan Loi,cong nghe,18,7,150
+Tu duy Logic,Mcinerny,ky nang song,19,5,120
+Co So Du Lieu,Luu Nguyen Ki Thu,cong nghe,20,9,250

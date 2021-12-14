@@ -1,11 +1,8 @@
 {
-  "files.associations": {
-    "xutility": "cpp",
-    "xstring": "cpp",
-    "iostream": "cpp",
-    "iosfwd": "cpp",
-    "system_error": "cpp",
-    "xlocale": "cpp",
-    "string": "cpp"
-  }
+    "files.associations": {
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "xstring": "cpp",
+        "utility": "cpp"
+    }
 }

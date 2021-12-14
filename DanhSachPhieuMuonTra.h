@@ -20,13 +20,14 @@ public:
     ~DanhSachPhieuMuonTra();
     void Show();
     PhieuMuonTra *addToHashTable(PhieuMuonTra, PhieuMuonTra *) const;
-    void Update(string);
-    void deletePhieuMuonTra(string);
-    PhieuMuonTra *Search(string);
+    void Update(int);
+    void deletePhieuMuonTra(int);
+    void deleteAllPhieuMuonTra();
+    PhieuMuonTra *Search(int);
     void addPhieuMuonTra(PhieuMuonTra);
     void addFromFile();
-    void GiaHan(string, int);
-    bool any(string);
+    void Kiem_Tra_Phieu_Muon_Tra_Qua_Han();
+    bool any(int);
     void updateFile();
 };
 #endif _DanhSachPhieuMuonTra_

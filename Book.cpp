@@ -41,7 +41,7 @@ Book Book::operator=(const Book &t)
 
 void Book::Show()
 {
-    cout << "masach:" << this->masach << endl;
+    cout << "\nmasach:" << this->masach << endl;
     cout << "tensach:" << this->tensach << endl;
     cout << "tentacgia:" << this->tentacgia << endl;
     cout << "tinhtrang:" << this->tinhtrang << endl;
@@ -51,7 +51,7 @@ void Book::Show()
     cout << "Giasach:" << this->Giasach << endl;
 }
 
-Book::Book(string masach,
+Book::Book(int masach,
            string tensach,
            string tentacgia,
            string theloai,
@@ -85,12 +85,30 @@ Book::Book(Book &t)
 Book::~Book()
 {
 }
+void Book::setBook(int masach,
+                   string tensach,
+                   string tentacgia,
+                   string theloai,
+                   int doyeuthich,
+                   bool tinhtrang,
+                   int Giasach)
+{
+    this->tensach = tensach;
 
+    this->tentacgia = tentacgia;
+
+    this->theloai = theloai;
+    this->doyeuthich = doyeuthich;
+    this->Giasach = Giasach;
+    this->masach = masach;
+    this->tinhtrang = tinhtrang;
+    this->next = nullptr;
+}
 int Book::hash()
 {
 
     unsigned long hash = 5381;
-    for (auto c : this->masach)
+    for (auto c : to_string(this->masach))
     {
         hash = (hash << 5) + hash + c; /* hash * 33 + c */
     }

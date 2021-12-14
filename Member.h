@@ -22,16 +22,22 @@ protected:
 
 public:
     Member();
-    Member(int ma_Member,
-           string Ho = "Nguyen",
-           string Ten = "A",
-           Date ngaysinh = Date(1, 1, 2021),
-           string Phai = "nam",
-           bool Trang_Thai = true);
+    Member(int = 0,
+           string = "Nguyen",
+           string = "A",
+           Date = Date(1, 1, 2021),
+           string = "nam",
+           bool = true);
     Member(Member &);
     ~Member();
     void Show();
     int hash();
+    void setMember(int = 0,
+                   string = "Nguyen",
+                   string = "A",
+                   Date = Date(1, 1, 2021),
+                   string = "nam",
+                   bool = true);
 
     friend ostream &operator<<(ostream &, Date &);
     friend istream &operator>>(istream &, Date &);

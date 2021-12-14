@@ -46,12 +46,13 @@ Member::Member()
 
 void Member::Show()
 {
-    cout << "ma nguoi doc" << this->ma_Member << endl;
+    cout << "\nma nguoi doc:" << this->ma_Member << endl;
     cout << "ho:" << this->Ho << endl;
     cout << "ten:" << this->Ten << endl;
-    cout << "ngaysinh:" << this->ngaysinh << endl;
+
     cout << "Phai:" << this->Phai << endl;
     cout << "Trang_Thai:" << this->Trang_Thai << endl;
+    cout << "ngaysinh:" << this->ngaysinh << endl;
 }
 
 Member::Member(int ma_Member,
@@ -84,6 +85,21 @@ Member::Member(Member &t)
 
 Member::~Member()
 {
+}
+void Member::setMember(int ma_Member,
+                       string Ho,
+                       string Ten,
+                       Date ngaysinh,
+                       string Phai,
+                       bool Trang_Thai)
+{
+    this->ma_Member = ma_Member;
+    this->Ho = Ho;
+    this->Ten = Ten;
+    this->ngaysinh = ngaysinh;
+    this->Phai = Phai;
+    this->Trang_Thai = Trang_Thai;
+    this->next = nullptr;
 }
 
 int Member::hash()
